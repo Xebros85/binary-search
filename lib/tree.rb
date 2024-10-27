@@ -5,16 +5,23 @@ require_relative "node"
 class Tree
   attr_accessor :root, :size
 
-  def initialize(node)
-    @root = node
-    @size = 0
-  end
+  # def initialize(node)
+  #   @root = build_tree(node)
+  #   @size = 0
+  # end
 
   def build_tree(array)
     # This method builds the binary search tree
     # Takes an array of data and turns it into a balanced binary tree full of Node objects appropriately placed
     # Sort and remove duplicates
     # Should return the level-0 root node
+    sorted_array = array.uniq.sort
+    p sorted_array
+    length = sorted_array.length
+    puts "Length of array: #{length}"
+
+    root = sorted_array[length / 2]
+    puts "Root: #{root}"
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)

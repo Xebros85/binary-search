@@ -2,6 +2,8 @@
 
 require_relative "lib/tree"
 
-tree = Tree.new(Node.new(nil, nil, 1))
+array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
-puts tree.root.value
+tree = Tree.new
+
+tree.build_tree(array)
