@@ -1,10 +1,13 @@
 # Tree Class
 
-class Tree
-  attr_accessor :root
+require_relative "node"
 
-  def initialize
-    @root = root
+class Tree
+  attr_accessor :root, :size
+
+  def initialize(node)
+    @root = node
+    @size = 0
   end
 
   def build_tree(array)
