@@ -5,26 +5,30 @@ require_relative "node"
 class Tree
   attr_accessor :root, :size
 
-  # def initialize(node)
-  #   @root = build_tree(node)
-  #   @size = 0
-  # end
+  def initialize(input)
+    @sorted_array = input.uniq.sort
+    @root = build_tree(@sorted_array)    
+    @size = 0
+    pretty_print(@root)
+  end
 
-  def build_tree(array)
-    # This method builds the binary search tree
-    # Takes an array of data and turns it into a balanced binary tree full of Node objects appropriately placed
-    # Sort and remove duplicates
-    # Should return the level-0 root node
-    sorted_array = array.uniq.sort
-    p sorted_array
-    length = sorted_array.length
-    puts "Length of array: #{length}"
+  def build_tree(array, start_point=0, end_point=(array.length-1))
+    return nil if start_point > end_point  
 
-    root = sorted_array[length / 2]
-    puts "Root: #{root}"
+    mid_point = (start_point + end_point) / 2
+    node = Node.new(array[mid_point])
+
+    node.left = build_tree(array, start_point, mid_point - 1)
+    node.right = build_tree(array, mid_point + 1, end_point)
+
+    return node
+    
+    
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
+    return if node.nil?
+
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
