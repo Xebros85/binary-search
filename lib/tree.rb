@@ -21,9 +21,7 @@ class Tree
     node.left = build_tree(array, start_point, mid_point - 1)
     node.right = build_tree(array, mid_point + 1, end_point)
 
-    return node
-    
-    
+    return node    
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -46,37 +44,37 @@ class Tree
     # finds the node of a value
   end
 
-  def level_order
-    # Accepts a block. This method should travers the tree in breadth-first level order and yield each node to the provided block.
+  def level_order#(block)
+    # Accepts a block. This method should traverse the tree in breadth-first level order and yield each node to the provided block.
     # Can be implemented using interation or recursion
     # Should return an array of values if no block given
     # 
   end
 
-  def inorder
+  def inorder#(block)
     # Accepts a block
     # Depth first order and yield each not to the provided block
     # Should return an array if no block is given
   end
 
-  def preorder
+  def preorder#(block)
     # Accepts a block
     # Depth first order and yield each not to the provided block
     # Should return an array if no block is given
   end
 
-  def postorder
+  def postorder#(block)
     # Accepts a block
     # Depth first order and yield each not to the provided block
     # Should return an array if no block is given
   end
 
-  def height
+  def height#(node)
     # Accepts a node and returns its height
     # Height is defined as the number of edges in the longest path from a given node to a leaf node
   end
 
-  def depth
+  def depth#(node)
     # Accepts a node and returns its depth
     # Depth is defined as the number of edges in path from a given node to the tree's root node.
   end
