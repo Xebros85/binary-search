@@ -34,16 +34,19 @@ class Tree
 
   def insert(node, head = @root)
     # Inserts a value
-    return @root = node if @root.nil?
+    new_node = Node.new(node) 
+    
+    return @root = new_node if @root.nil?
 
-    return node if head.nil?
+    return new_node if head.nil?
 
-    if node.data < head.data
+    if new_node.data < head.data
       head.left = insert(node, head.left)
+    elsif new_node.data > head.data
+      head.right = insert(node, head.right)
     end
-
-
-
+    head
+    
   end
 
   def delete(value)
