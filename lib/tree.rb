@@ -51,6 +51,16 @@ class Tree
 
   def delete(value)
     # deletes a value
+    # First Case: Delete a leaf in the tree.
+    # Second Case: Deleting a node that has one child
+    #   replace the node with child. Maintains binary search tree property
+    # Third Case: Remove a node that has two children
+    #   Find the node in the tree thats next biggest. Right Subtree node and then left node
+    #   Smallest thing in the right subtree
+    
+    # Base Case
+    
+       
   end
 
   def find(value)
