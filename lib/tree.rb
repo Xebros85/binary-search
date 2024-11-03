@@ -49,10 +49,10 @@ class Tree
     
   end
 
-  def delete(value, root = @root)
+  def delete(value, root = nil)
     # deletes a value
     # Base Case
-    return root if root.nil?
+    root = @root if root.nil?
 
     if value == root
       # First Case: Deleting a leaf node - No Child
