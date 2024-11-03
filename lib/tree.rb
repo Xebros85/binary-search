@@ -49,39 +49,36 @@ class Tree
     
   end
 
-  def delete(value, root = nil)
-    # deletes a value
+  def delete(value, node = root)
+        
     # Base Case
-    root = @root if root.nil?
+    return nil if node.nil?
 
-    if value == root
-      # First Case: Deleting a leaf node - No Child
-      return nil if !root.right && !root.left
-      return root.right if !root.left && root.right
-      return root.left if !root.right && root.left  
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else
 
-    elsif root.data > value
-      root.left = delete(value, root.left)
-    else root.data < value
-      root.right = delete(value, root.right)
+      # First Case: No child (Leaf Node)
+      return node.right if node.left.nil? && node.right.nil?
+      return node.left if node.right.nil?
+
+      # Second Case: Node with One Child      
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
+
+      # Third Case: Node with 2 children
+      node.data = get_min(node.right).data
+      node.right = delete(node.data, node.right)
     end
-    root
-  
+    node
+  end
 
-
-
-    # Second Case: Deleting a node that has one child
-    #   replace the node with child. Maintains binary search tree property
-    #   
-
-
-    # Third Case: Remove a node that has two children
-    #   Find the node in the tree thats next biggest. Right Subtree node and then left node
-    #   Smallest thing in the right subtree
-    #   OR the biggest value in left subtree
-    #   Delete duplicate value node
-    
-           
+  def get_min(node)
+    current = node
+    current = node.left until current.left.nil?
+    current
   end
 
   def find(value)
