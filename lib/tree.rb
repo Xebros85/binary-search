@@ -101,6 +101,7 @@ class Tree
     queue = []
 
     current = node
+    queue << current
     until queue.empty?
       current = queue[0]
       level_array << queue.shift.data
