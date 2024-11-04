@@ -140,7 +140,7 @@ class Tree
     postorder_array.flatten
   end
 
-  def heigh(node = root)
+  def height(node = root)
     return -1 if node.nil?
 
     height = 0
