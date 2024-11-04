@@ -50,7 +50,7 @@ class Tree
   end
 
   def delete(value, node = root)
-        
+
     # Base Case
     return nil if node.nil?
 
@@ -81,53 +81,93 @@ class Tree
     current
   end
 
-  def find(value)
+  def find(value, node = root)
     # finds the node of a value
+    return nil if node.nil?
+
+    if value < node.data
+      find(value, node.left)
+    elsif value > node.data
+      find(value, node.right)
+    else
+      node
+    end
   end
 
-  def level_order#(block)
-    # Accepts a block. This method should traverse the tree in breadth-first level order and yield each node to the provided block.
-    # Can be implemented using interation or recursion
-    # Should return an array of values if no block given
-    # 
+  def level_order(node = root)
+    return nil if node.nil?
+    
+    level_array = []
+    queue = []
+
+    current = node
+    until queue.empty?
+      current = queue[0]
+      level_array << queue.shift.data
+      queue << current.left unless current.left.nil?
+      queue << current.right unless current.right.nil?
+    end
+    level_array
   end
 
-  def inorder#(block)
-    # Accepts a block
-    # Depth first order and yield each not to the provided block
-    # Should return an array if no block is given
+  def inorder(node = root)
+    return nil if node.nil?
+
+    inorder_array = []
+    inorder_array << inorder(node.left) unless node.left.nil?
+    inorder_array << node.data
+    inorder_array << inorder(node.right) unless node.right.nil?
+    inorder_array.flatten
   end
 
-  def preorder#(block)
-    # Accepts a block
-    # Depth first order and yield each not to the provided block
-    # Should return an array if no block is given
+  def preorder(node = root)
+    return nil if node.nil?
+
+    preorder_array = []
+    preorder_array << node.data
+    preorder_array << preorder(node.left) unless node.left.nil?
+    preorder_array << preorder(node.right) unless node.right.nil?
+    preorder_array.flatten
   end
 
-  def postorder#(block)
-    # Accepts a block
-    # Depth first order and yield each not to the provided block
-    # Should return an array if no block is given
+  def postorder(node = root)
+    return nil if node.nil?
+
+    postorder_array = []
+    postorder_array << postorder(node.left) unless node.left.nil?
+    postorder_array << postorder(node.right) unless node.right.nil?
+    postorder_array << node.data
+    postorder_array.flatten
   end
 
-  def height#(node)
-    # Accepts a node and returns its height
-    # Height is defined as the number of edges in the longest path from a given node to a leaf node
+  def heigh(node = root)
+    return -1 if node.nil?
+
+    height = 0
+    left_height = height(node.left)
+    right_height = height(node.right)
+    height += [left_height, right_height].max
+    height + 1
   end
 
-  def depth#(node)
-    # Accepts a node and returns its depth
-    # Depth is defined as the number of edges in path from a given node to the tree's root node.
+  def depth(node = root, current_node = root, node_depth = 0)
+    return 0 if current_node.nil? || node.nil?
+
+    return node_depth if current_node == node
+
+    left_side = depth(node, current_node.left, node_depth + 1)
+    right_side = depth(node, current_node.right, node_depth + 1)
+
+    left_side.zero? ? right_side : left_side
   end
 
-  def balanced?
-    # Checks if the tree is balanced
-    # A balanced tree is on where the different between heights of left subtree and right subtree of every node is not more than 1
+  def balanced?(node = root)
+    difference = height(node.left) - height(node.right)
+    difference >= -1 && difference <= 1
   end
 
-  def rebalance
-    # Rebalances an unbalanced tree
-    # Use a traversal method to provide a new array to the #build_tree method
+  def rebalance(node = root)
+    initialize(inorder(node))
   end
  
 end
